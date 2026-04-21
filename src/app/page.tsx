@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Box, Cpu, Zap, CheckCircle2, ChevronRight, Layers, Target, Command } from "lucide-react";
+import { ArrowRight, Box, Cpu, Zap, CheckCircle2, ChevronRight, Layers, Target, Command, Bot, MessageSquare, X } from "lucide-react";
+import { FormEvent, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 
 function seededValue(index: number, salt: number) {
@@ -23,6 +25,23 @@ function seededSignedRange(index: number, salt: number, magnitude: number) {
 }
 
 export default function Home() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [chatReply, setChatReply] = useState<string | null>(null);
+
+  const handleChatSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const trimmedQuestion = question.trim();
+    if (!trimmedQuestion) {
+      setChatReply("Please type a question first.");
+      return;
+    }
+
+    setChatReply(
+      `Placeholder response for: "${trimmedQuestion}". Connect Gemini API here later to return real answers.`
+    );
+  };
+
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const grainParticles = Array.from({ length: 40 }, (_, index) => ({
@@ -143,12 +162,12 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="bg-[var(--primary)] text-[#0B0B0B] font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 glow-btn w-full sm:w-auto justify-center">
+              <Link href="/contact" className="bg-[var(--primary)] text-[#0B0B0B] font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 glow-btn w-full sm:w-auto justify-center">
                 Start a Project <ArrowRight size={20} />
-              </button>
-              <button className="text-white font-medium text-lg px-8 py-4 rounded-full border border-white/20 hover:bg-white/5 transition-all w-full sm:w-auto glass">
+              </Link>
+              <Link href="#services" className="text-white font-medium text-lg px-8 py-4 rounded-full border border-white/20 hover:bg-white/5 transition-all w-full sm:w-auto glass">
                 See Services
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -235,9 +254,9 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <button className="flex items-center gap-2 text-[var(--accent-neon)] font-bold hover:underline underline-offset-8 transition-all">
+              <Link href="#process" className="flex items-center gap-2 text-[var(--accent-neon)] font-bold hover:underline underline-offset-8 transition-all">
                 See how we structure projects <ChevronRight size={20} />
-              </button>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -251,9 +270,9 @@ export default function Home() {
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">What you get</h2>
                 <p className="text-[var(--text-secondary)] text-lg max-w-xl">The deliverables are tailored to the job, but the pattern stays consistent: clarity, speed, maintainability, and measurable impact.</p>
              </div>
-             <button className="hidden md:flex text-white border border-white/20 glass px-6 py-3 rounded-full items-center gap-2 hover:bg-white/10 transition-colors">
+             <Link href="#testimonials" className="hidden md:flex text-white border border-white/20 glass px-6 py-3 rounded-full items-center gap-2 hover:bg-white/10 transition-colors">
                Review sample work
-             </button>
+             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[250px]">
@@ -379,7 +398,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. CTA SECTION */}
+      {/* 8. CTA SECTION */}
       <section id="contact" className="py-40 relative my-20">
          <div className="absolute inset-0 bg-[var(--primary)]/5 mix-blend-screen pointer-events-none"></div>
          <div className="container mx-auto px-6 text-center relative z-10">
@@ -393,15 +412,15 @@ export default function Home() {
                <div className="relative z-10">
                  <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">Start the project.</h2>
                  <p className="text-xl text-[var(--text-secondary)] mb-12 max-w-2xl mx-auto font-light">If you need AI, product engineering, data work, or delivery support, we can scope the path and start with the highest-value piece first.</p>
-                 <button className="bg-[var(--primary)] text-[#0B0B0B] font-bold text-xl px-12 py-5 rounded-full shadow-[0_0_40px_rgba(182,255,59,0.3)] hover:shadow-[0_0_60px_rgba(182,255,59,0.5)] transition-all hover:scale-105 inline-flex items-center gap-3">
+                  <Link href="/contact" className="bg-[var(--primary)] text-[#0B0B0B] font-bold text-xl px-12 py-5 rounded-full shadow-[0_0_40px_rgba(182,255,59,0.3)] hover:shadow-[0_0_60px_rgba(182,255,59,0.5)] transition-all hover:scale-105 inline-flex items-center gap-3">
                     Book a discovery call <Zap className="fill-black" size={24} />
-                 </button>
+                  </Link>
                </div>
             </motion.div>
          </div>
       </section>
 
-      {/* 8. FOOTER */}
+          {/* 9. FOOTER */}
       <footer className="bg-[var(--background-base)] border-t border-white/10 pt-20 pb-10">
          <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
@@ -431,7 +450,7 @@ export default function Home() {
                  <ul className="space-y-4 text-[var(--text-muted)]">
                    <li><a href="#approach" className="hover:text-white transition-colors">How we work</a></li>
                    <li><a href="#results" className="hover:text-white transition-colors">Selected work</a></li>
-                   <li><a href="#contact" className="hover:text-white transition-colors">Start a project</a></li>
+                   <li><Link href="/contact" className="hover:text-white transition-colors">Start a project</Link></li>
                  </ul>
                </div>
             </div>
@@ -439,11 +458,75 @@ export default function Home() {
                <p>&copy; 2026 Tazkhiir Corporation. Built for practical delivery.</p>
                <div className="flex gap-6 mt-4 md:mt-0">
                  <a href="#services" className="hover:text-white">Services</a>
-                 <a href="#contact" className="hover:text-white">Contact</a>
+                 <Link href="/contact" className="hover:text-white">Contact</Link>
                </div>
             </div>
          </div>
       </footer>
+
+      {/* Floating Chatbot Widget */}
+      <div className="fixed right-5 bottom-5 z-[60] md:right-8 md:bottom-8">
+        {isChatOpen && (
+          <div className="mb-3 w-[calc(100vw-2.5rem)] max-w-sm rounded-3xl border border-white/10 bg-[var(--surface)]/95 shadow-[0_20px_60px_rgba(0,0,0,0.35)] overflow-hidden backdrop-blur-lg">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[var(--background-secondary)]/90">
+              <div className="flex items-center gap-2 text-[var(--text-primary)] font-semibold">
+                <Bot size={18} className="text-[var(--accent-neon)]" />
+                <span>Tazkhiir Chatbot</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsChatOpen(false)}
+                aria-label="Close chatbot"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="p-4 space-y-3">
+              <div className="rounded-2xl border border-white/10 bg-[var(--background-secondary)]/90 p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)] mb-2">Assistant</p>
+                <p className="text-sm text-[var(--text-secondary)]">
+                  {chatReply ?? "Hi. This is a placeholder chatbot. Ask a question to test the UI."}
+                </p>
+              </div>
+
+              {question.trim() && (
+                <div className="rounded-2xl border border-[var(--primary)]/25 bg-[var(--primary)]/18 p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)] mb-2">You</p>
+                  <p className="text-sm text-[var(--text-primary)]">{question}</p>
+                </div>
+              )}
+
+              <form onSubmit={handleChatSubmit} className="flex gap-2">
+                <input
+                  id="chatbot-question"
+                  value={question}
+                  onChange={(event) => setQuestion(event.target.value)}
+                  placeholder="Ask a question..."
+                  className="w-full rounded-xl bg-transparent border border-white/20 px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)]"
+                />
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center gap-1 bg-[var(--primary)] text-[#0B0B0B] font-bold px-4 py-2 rounded-xl hover:scale-[1.02] transition-transform"
+                >
+                  <MessageSquare size={16} />
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setIsChatOpen((prev) => !prev)}
+          aria-label={isChatOpen ? "Close chatbot" : "Open chatbot"}
+          className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] text-[#0B0B0B] font-bold px-5 py-3 shadow-[0_0_30px_rgba(182,255,59,0.35)] hover:scale-105 transition-transform"
+        >
+          <Bot size={18} />
+          <span>{isChatOpen ? "Close Chat" : "Chat"}</span>
+        </button>
+      </div>
     </>
   );
 }

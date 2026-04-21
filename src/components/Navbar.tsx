@@ -1,6 +1,7 @@
 
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -84,7 +85,7 @@ export function Navbar() {
       style={scrolled ? { backgroundColor: "var(--nav-bg)", borderColor: "var(--nav-border)" } : undefined}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-3 text-[var(--text-primary)] font-bold text-xl tracking-wider">
+        <Link href="/" className="flex items-center gap-3 text-[var(--text-primary)] font-bold text-xl tracking-wider">
           <div className="relative flex items-center justify-center">
             <div
               className="absolute inset-[-6%] rounded-full blur-md pointer-events-none"
@@ -92,14 +93,14 @@ export function Navbar() {
             />
             <Image src="/logo-large.png" alt="Tazkhiir Logo" width={160} height={40} className="relative z-10 h-10 w-auto" style={{ filter: "var(--logo-filter)" }} priority />
           </div>
-          <span>TAZKHIIR</span>
-        </div>
+          <span className="navbar-title">Tazkhiir</span>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8 text-[var(--text-secondary)] text-sm font-medium">
-          <a href="#services" className="hover:text-[var(--text-primary)] transition-colors">Services</a>
-          <a href="#approach" className="hover:text-[var(--text-primary)] transition-colors">Approach</a>
-          <a href="#results" className="hover:text-[var(--text-primary)] transition-colors">Work</a>
-          <a href="#contact" className="hover:text-[var(--text-primary)] transition-colors">Contact</a>
+          <Link href="/#services" className="hover:text-[var(--text-primary)] transition-colors">Services</Link>
+          <Link href="/#approach" className="hover:text-[var(--text-primary)] transition-colors">Approach</Link>
+          <Link href="/#results" className="hover:text-[var(--text-primary)] transition-colors">Work</Link>
+          <Link href="/contact" className="hover:text-[var(--text-primary)] transition-colors">Contact</Link>
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
@@ -108,9 +109,9 @@ export function Navbar() {
           >
             {themeIcon}
           </button>
-          <button className="bg-[var(--primary)]/10 text-[var(--accent-neon)] border border-[var(--primary)] px-5 py-2 rounded-full hover:bg-[var(--primary)]/20 transition-all glow-btn">
+          <Link href="/contact" className="bg-[var(--primary)]/10 text-[var(--accent-neon)] border border-[var(--primary)] px-5 py-2 rounded-full hover:bg-[var(--primary)]/20 transition-all glow-btn">
             Get Started
-          </button>
+          </Link>
         </div>
 
         <div className="md:hidden flex items-center gap-3">
@@ -137,13 +138,13 @@ export function Navbar() {
           className="md:hidden absolute top-full left-0 right-0 backdrop-blur-xl border-b p-6 flex flex-col gap-6 text-center"
           style={{ backgroundColor: "var(--nav-bg)", borderColor: "var(--nav-border)" }}
         >
-          <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Services</a>
-          <a href="#approach" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Approach</a>
-          <a href="#results" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Work</a>
-          <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Contact</a>
-          <button className="bg-[var(--primary)] text-black font-semibold py-3 rounded-full mt-2">
+          <Link href="/#services" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Services</Link>
+          <Link href="/#approach" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Approach</Link>
+          <Link href="/#results" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Work</Link>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-[var(--text-secondary)]">Contact</Link>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="bg-[var(--primary)] text-black font-semibold py-3 rounded-full mt-2">
             Get Started
-          </button>
+          </Link>
         </div>
       )}
     </motion.nav>

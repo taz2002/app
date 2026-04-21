@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Bionix";
+  src: url("/fonts/Bionix-demo.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme inline {
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
@@ -60,6 +68,11 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headings);
+}
+
+.navbar-title {
+  font-family: "Bionix", var(--font-headings), ui-sans-serif, system-ui;
+  letter-spacing: 0.06em;
 }
 
 .glass {
