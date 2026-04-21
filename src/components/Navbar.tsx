@@ -91,7 +91,7 @@ export function Navbar() {
               className="absolute inset-[-6%] rounded-full blur-md pointer-events-none"
               style={{ background: "var(--logo-glow)" }}
             />
-            <Image src="/logo-large.png" alt="Tazkhiir Logo" width={160} height={40} className="relative z-10 h-10 w-auto" style={{ filter: "var(--logo-filter)" }} priority />
+            <Image src="/logo-large.png" alt="Tazkhiir Logo" width={160} height={40} className="relative z-10 h-[40px] w-[160px]" style={{ filter: "var(--logo-filter)" }} priority />
           </div>
           <span className="navbar-title">Tazkhiir</span>
         </Link>

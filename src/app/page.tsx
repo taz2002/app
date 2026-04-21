@@ -3,8 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Box, Cpu, Zap, CheckCircle2, ChevronRight, Layers, Target, Command, Bot, MessageSquare, X } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { ArrowRight, Box, Cpu, Zap, CheckCircle2, ChevronRight, Layers, Target, Command } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 
 function seededValue(index: number, salt: number) {
@@ -25,23 +24,6 @@ function seededSignedRange(index: number, salt: number, magnitude: number) {
 }
 
 export default function Home() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [question, setQuestion] = useState("");
-  const [chatReply, setChatReply] = useState<string | null>(null);
-
-  const handleChatSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const trimmedQuestion = question.trim();
-    if (!trimmedQuestion) {
-      setChatReply("Please type a question first.");
-      return;
-    }
-
-    setChatReply(
-      `Placeholder response for: "${trimmedQuestion}". Connect Gemini API here later to return real answers.`
-    );
-  };
-
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const grainParticles = Array.from({ length: 40 }, (_, index) => ({
@@ -464,69 +446,6 @@ export default function Home() {
          </div>
       </footer>
 
-      {/* Floating Chatbot Widget */}
-      <div className="fixed right-5 bottom-5 z-[60] md:right-8 md:bottom-8">
-        {isChatOpen && (
-          <div className="mb-3 w-[calc(100vw-2.5rem)] max-w-sm rounded-3xl border border-white/10 bg-[var(--surface)]/95 shadow-[0_20px_60px_rgba(0,0,0,0.35)] overflow-hidden backdrop-blur-lg">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[var(--background-secondary)]/90">
-              <div className="flex items-center gap-2 text-[var(--text-primary)] font-semibold">
-                <Bot size={18} className="text-[var(--accent-neon)]" />
-                <span>Tazkhiir Chatbot</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsChatOpen(false)}
-                aria-label="Close chatbot"
-                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="p-4 space-y-3">
-              <div className="rounded-2xl border border-white/10 bg-[var(--background-secondary)]/90 p-3">
-                <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)] mb-2">Assistant</p>
-                <p className="text-sm text-[var(--text-secondary)]">
-                  {chatReply ?? "Hi. This is a placeholder chatbot. Ask a question to test the UI."}
-                </p>
-              </div>
-
-              {question.trim() && (
-                <div className="rounded-2xl border border-[var(--primary)]/25 bg-[var(--primary)]/18 p-3">
-                  <p className="text-xs uppercase tracking-[0.12em] text-[var(--text-muted)] mb-2">You</p>
-                  <p className="text-sm text-[var(--text-primary)]">{question}</p>
-                </div>
-              )}
-
-              <form onSubmit={handleChatSubmit} className="flex gap-2">
-                <input
-                  id="chatbot-question"
-                  value={question}
-                  onChange={(event) => setQuestion(event.target.value)}
-                  placeholder="Ask a question..."
-                  className="w-full rounded-xl bg-transparent border border-white/20 px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--primary)]"
-                />
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-1 bg-[var(--primary)] text-[#0B0B0B] font-bold px-4 py-2 rounded-xl hover:scale-[1.02] transition-transform"
-                >
-                  <MessageSquare size={16} />
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
-
-        <button
-          type="button"
-          onClick={() => setIsChatOpen((prev) => !prev)}
-          aria-label={isChatOpen ? "Close chatbot" : "Open chatbot"}
-          className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] text-[#0B0B0B] font-bold px-5 py-3 shadow-[0_0_30px_rgba(182,255,59,0.35)] hover:scale-105 transition-transform"
-        >
-          <Bot size={18} />
-          <span>{isChatOpen ? "Close Chat" : "Chat"}</span>
-        </button>
-      </div>
     </>
   );
 }
