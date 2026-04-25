@@ -86,12 +86,12 @@ export function Navbar() {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 text-[var(--text-primary)] font-bold text-xl tracking-wider">
-          <div className="relative flex items-center justify-center">
+          <div className="relative flex h-10 w-10 items-center justify-center">
             <div
               className="absolute inset-[-6%] rounded-full blur-md pointer-events-none"
               style={{ background: "var(--logo-glow)" }}
             />
-            <Image src="/logo-large.png" alt="Tazkhiir Logo" width={160} height={40} className="relative z-10 h-[40px] w-[160px]" style={{ filter: "var(--logo-filter)" }} priority />
+            <Image src="/logo-large.png" alt="Tazkhiir Logo" width={3264} height={3264} className="relative z-10 h-10 w-10 object-contain" style={{ filter: "var(--logo-filter)" }} priority />
           </div>
           <span className="navbar-title">Tazkhiir</span>
         </Link>

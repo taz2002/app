@@ -122,7 +122,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="w-full flex items-center justify-center mb-10">
-              <div className="relative flex items-center justify-center">
+              <div className="relative flex items-center justify-center translate-y-5 md:translate-y-6">
                 <div
                   className="absolute inset-[-5%] rounded-full blur-md pointer-events-none"
                   style={{ background: "var(--logo-glow)" }}

@@ -23,14 +23,14 @@ function trimMessages(messages: Message[], max: number) {
   return messages.slice(-max);
 }
 
-export function Chatbot() {
+export function ZehnX() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hi, I am your AI assistant. Ask me anything.",
+      content: "Hi, I’m ZehnX. Ask me anything.",
     },
   ]);
 
@@ -145,7 +145,7 @@ export function Chatbot() {
           <div className="flex items-center justify-between border-b border-white/10 bg-[var(--background-secondary)]/90 px-4 py-3">
             <div className="flex items-center gap-2">
               <Bot className="text-[var(--accent-neon)]" size={18} />
-              <h2 className="text-sm font-semibold text-[var(--text-primary)]">AI Chat</h2>
+              <h2 className="text-sm font-semibold text-[var(--text-primary)]">ZehnX</h2>
             </div>
             <button
               type="button"
@@ -188,10 +188,10 @@ export function Chatbot() {
         type="button"
         onClick={() => setOpen((current) => !current)}
         className="inline-flex items-center gap-2 rounded-full bg-[var(--primary)] px-5 py-3 text-sm font-bold text-[#0B0B0B] shadow-[0_0_30px_rgba(182,255,59,0.35)] transition hover:scale-105"
-        aria-label={open ? "Close chat" : "Open chat"}
+        aria-label={open ? "Close ZehnX" : "Open ZehnX"}
       >
         <MessageSquare size={18} />
-        {open ? "Close" : "Chat"}
+        {open ? "Close" : "ZehnX"}
       </button>
     </div>
   );
