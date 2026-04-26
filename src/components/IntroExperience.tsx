@@ -25,23 +25,18 @@ export default function IntroExperience({
   useEffect(() => {
     setIsMounted(true);
     
-    // Feature: to avoid annoyance, only show intro once per session.
-    const hasSeenIntro = sessionStorage.getItem("tazkhiir-intro-seen");
-    if (hasSeenIntro) {
-      setShowIntro(false);
-      return;
-    }
+    // Intro triggers on mount, ensuring a premium 4.5s cinematic experience every time.
+    // (SessionStorage check removed to maintain consistent triggering as requested)
 
     // Message rotation -> smoother timing, starts after brand reveal
     const messageInterval = setInterval(() => {
       setMessageIndex((prev) => (prev < messages.length - 1 ? prev + 1 : prev));
-    }, 900);
+    }, 1100);
 
-    // Total cinematic duration is 3.5s
+    // Total cinematic duration increased to ~4.5s
     const timer = setTimeout(() => {
       setShowIntro(false);
-      sessionStorage.setItem("tazkhiir-intro-seen", "true");
-    }, 3500);
+    }, 4500);
 
     return () => {
       clearTimeout(timer);
@@ -73,7 +68,7 @@ export default function IntroExperience({
                 opacity: [0, 0.6, 0.4], 
                 scale: [1.2, 1, 1.05] 
               }}
-              transition={{ duration: 3.5, ease: customEase }}
+              transition={{ duration: 4.5, ease: customEase }}
               style={{
                 background: "radial-gradient(circle at 50% 50%, rgba(139,195,74,0.18) 0%, rgba(10,14,8,0) 60%)"
               }}
@@ -120,7 +115,7 @@ export default function IntroExperience({
                   className="absolute inset-0 overflow-visible opacity-40 mix-blend-screen"
                   initial={{ rotate: -90, scale: 0.8, opacity: 0 }}
                   animate={{ rotate: 180, scale: 1.1, opacity: [0, 0.4, 0.2] }}
-                  transition={{ duration: 3.5, ease: customEase }}
+                  transition={{ duration: 4.5, ease: customEase }}
                 >
                   <motion.circle
                     cx="50"
@@ -132,7 +127,7 @@ export default function IntroExperience({
                     strokeDasharray="100 200"
                     initial={{ strokeDashoffset: 300 }}
                     animate={{ strokeDashoffset: 0 }}
-                    transition={{ duration: 3, ease: customEase }}
+                    transition={{ duration: 4, ease: customEase }}
                   />
                   <defs>
                     <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -181,13 +176,13 @@ export default function IntroExperience({
                 className="w-48 h-[1px] bg-[#8bc34a]/10 relative overflow-hidden rounded-full shadow-[0_0_10px_rgba(139,195,74,0.2)]"
                 initial={{ opacity: 0, width: 0 }}
                 animate={{ opacity: 1, width: 192 }}
-                transition={{ duration: 1, delay: 0.8, ease: customEase }}
+                transition={{ duration: 1.5, delay: 0.8, ease: customEase }}
               >
                 <motion.div 
                   className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-transparent via-[#b6ff3b] to-[#8bc34a]"
                   initial={{ x: "-100%" }}
                   animate={{ x: "0%" }}
-                  transition={{ duration: 2.2, delay: 0.8, ease: customEase }}
+                  transition={{ duration: 3.2, delay: 0.8, ease: customEase }}
                 />
               </motion.div>
             </div>
