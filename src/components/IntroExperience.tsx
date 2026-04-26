@@ -104,9 +104,9 @@ export default function IntroExperience({
               ))}
             </div>
 
-            <div className="relative z-10 flex flex-col items-center">
+            <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
               {/* Brand Reveal Cinematic Focus */}
-              <div className="relative flex items-center justify-center h-40 w-40 mb-10">
+              <div className="relative flex items-center justify-center h-32 w-32 md:h-48 md:w-48 mb-8 md:mb-10">
                 {/* Luminous Rotating Arc */}
                 <motion.svg
                   width="100%"
@@ -114,7 +114,7 @@ export default function IntroExperience({
                   viewBox="0 0 100 100"
                   className="absolute inset-0 overflow-visible opacity-40 mix-blend-screen"
                   initial={{ rotate: -90, scale: 0.8, opacity: 0 }}
-                  animate={{ rotate: 180, scale: 1.1, opacity: [0, 0.4, 0.2] }}
+                  animate={{ rotate: 270, scale: 1.15, opacity: [0, 0.4, 0.2] }}
                   transition={{ duration: 4.5, ease: customEase }}
                 >
                   <motion.circle
@@ -123,11 +123,11 @@ export default function IntroExperience({
                     r="48"
                     fill="none"
                     stroke="url(#glow-gradient)"
-                    strokeWidth="1"
-                    strokeDasharray="100 200"
+                    strokeWidth="1.5"
+                    strokeDasharray="120 200"
                     initial={{ strokeDashoffset: 300 }}
                     animate={{ strokeDashoffset: 0 }}
-                    transition={{ duration: 4, ease: customEase }}
+                    transition={{ duration: 4.5, ease: customEase }}
                   />
                   <defs>
                     <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -156,7 +156,7 @@ export default function IntroExperience({
               </div>
 
               {/* Reflective Cinematic Messages */}
-              <div className="h-8 overflow-hidden flex items-center justify-center mb-8 w-64">
+              <div className="h-8 overflow-hidden flex items-center justify-center mb-8 w-full max-w-[80vw] mx-auto text-center px-4">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={messageIndex}
@@ -164,7 +164,7 @@ export default function IntroExperience({
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
                     transition={{ duration: 0.7, ease: customEase }}
-                    className="text-[#eaf1df]/80 text-sm md:text-base font-light tracking-[0.05em]"
+                    className="text-[#eaf1df]/80 text-xs sm:text-sm md:text-base font-light tracking-[0.05em] md:tracking-[0.1em]"
                   >
                     {messages[messageIndex]}
                   </motion.div>
@@ -173,16 +173,16 @@ export default function IntroExperience({
 
               {/* Glowing Precision Progress Line */}
               <motion.div 
-                className="w-48 h-[1px] bg-[#8bc34a]/10 relative overflow-hidden rounded-full shadow-[0_0_10px_rgba(139,195,74,0.2)]"
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: 192 }}
-                transition={{ duration: 1.5, delay: 0.8, ease: customEase }}
+                className="h-[1.5px] bg-[#8bc34a]/15 relative overflow-hidden rounded-full shadow-[0_0_12px_rgba(139,195,74,0.3)] max-w-[80vw]"
+                initial={{ opacity: 0, width: "0%" }}
+                animate={{ opacity: 1, width: "16rem" }} // 16rem = 256px max width
+                transition={{ duration: 1.8, delay: 0.8, ease: customEase }}
               >
                 <motion.div 
                   className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-transparent via-[#b6ff3b] to-[#8bc34a]"
                   initial={{ x: "-100%" }}
                   animate={{ x: "0%" }}
-                  transition={{ duration: 3.2, delay: 0.8, ease: customEase }}
+                  transition={{ duration: 3.5, delay: 0.8, ease: customEase }}
                 />
               </motion.div>
             </div>
