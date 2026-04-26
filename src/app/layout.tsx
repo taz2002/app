@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { ZehnX } from "@/components/Chatbot";
+import IntroExperience from "@/components/IntroExperience";
 
 const interSans = Inter({
   variable: "--font-inter",
@@ -44,8 +45,10 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[var(--background-base)] text-[var(--text-primary)] min-h-screen flex flex-col font-sans transition-colors duration-300">
-        {children}
-        <ZehnX />
+        <IntroExperience>
+          {children}
+          <ZehnX />
+        </IntroExperience>
       </body>
     </html>
   );
