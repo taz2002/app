@@ -19,6 +19,7 @@ export default function IntroExperience({
   children: React.ReactNode;
 }) {
   const [showIntro, setShowIntro] = useState(true);
+  const [isRevealed, setIsRevealed] = useState(false);
   const [messageIndex, setMessageIndex] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -33,9 +34,11 @@ export default function IntroExperience({
       setMessageIndex((prev) => (prev < messages.length - 1 ? prev + 1 : prev));
     }, 1100);
 
-    // Total cinematic duration increased to ~4.5s
+    // Total cinematic duration
     const timer = setTimeout(() => {
       setShowIntro(false);
+      // Reveal the background hero quickly during the fadeout
+      setTimeout(() => setIsRevealed(true), 200);
     }, 4500);
 
     return () => {
@@ -54,11 +57,10 @@ export default function IntroExperience({
             animate={{ opacity: 1 }}
             exit={{ 
               opacity: 0, 
-              scale: 1.1,
-              filter: "blur(20px)",
-              transition: { duration: 1.2, ease: exitEase } 
+              scale: 1.05,
+              transition: { duration: 0.8, ease: exitEase } 
             }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0b0b0b] overflow-hidden"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0b0b0b] overflow-hidden pointer-events-none"
           >
             {/* Ambient Breathing Background */}
             <motion.div 
@@ -76,33 +78,6 @@ export default function IntroExperience({
             
             {/* Deep overlay vignette */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(0,0,0,0.8)_80%)] pointer-events-none" />
-
-            {/* Premium Dust Particles */}
-            <div className="absolute inset-0 pointer-events-none">
-              {[...Array(30)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-[2px] h-[2px] bg-[#b6ff3b] rounded-full blur-[1px]"
-                  initial={{
-                    x: typeof window !== "undefined" ? Math.random() * window.innerWidth : 500,
-                    y: typeof window !== "undefined" ? Math.random() * window.innerHeight : 500,
-                    opacity: 0,
-                    scale: 0
-                  }}
-                  animate={{
-                    y: [null, Math.random() * -150 - 50],
-                    x: [null, (Math.random() - 0.5) * 50],
-                    opacity: [0, Math.random() * 0.4 + 0.1, 0],
-                    scale: [0, Math.random() * 1.5 + 0.5, 0]
-                  }}
-                  transition={{
-                    duration: Math.random() * 3 + 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </div>
 
             <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
               {/* Brand Reveal Cinematic Focus */}
@@ -138,21 +113,15 @@ export default function IntroExperience({
                   </defs>
                 </motion.svg>
                 
-                {/* Typographic Ascent */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.85, y: 15, filter: "blur(12px)" }}
-                  animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+                {/* Logo Ascent */}
+                <motion.img
+                  src="/logo-large.png"
+                  alt="Tazkhiir Logo"
+                  initial={{ opacity: 0, scale: 0.85, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ duration: 1.4, delay: 0.3, ease: customEase }}
-                  className="text-4xl md:text-6xl font-['Bionix'] text-white tracking-[0.15em] drop-shadow-[0_0_25px_rgba(139,195,74,0.5)]"
-                >
-                  <motion.span
-                    initial={{ textShadow: "0px 0px 0px rgba(182, 255, 59, 0)" }}
-                    animate={{ textShadow: "0px 0px 30px rgba(182, 255, 59, 0.4)" }}
-                    transition={{ duration: 2, delay: 0.8, ease: "easeInOut" }}
-                  >
-                    TAZKHIIR
-                  </motion.span>
-                </motion.div>
+                  className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-[0_0_25px_rgba(139,195,74,0.3)]"
+                />
               </div>
 
               {/* Reflective Cinematic Messages */}
@@ -160,11 +129,12 @@ export default function IntroExperience({
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={messageIndex}
-                    initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
                     transition={{ duration: 0.7, ease: customEase }}
-                    className="text-[#eaf1df]/80 text-xs sm:text-sm md:text-base font-light tracking-[0.05em] md:tracking-[0.1em]"
+                    className="text-[#ffffff] text-xs sm:text-sm md:text-base font-medium tracking-[0.05em] md:tracking-[0.1em]"
+                    style={{ textShadow: '0 0 10px rgba(255,255,255,0.5)' }}
                   >
                     {messages[messageIndex]}
                   </motion.div>
@@ -195,17 +165,18 @@ export default function IntroExperience({
         animate={!showIntro ? { 
           opacity: 1, 
           scale: 1, 
-          y: 0,
-          filter: "blur(0px)" 
+          y: 0
         } : { 
           opacity: 0, 
-          scale: 0.96, 
-          y: 20,
-          filter: "blur(20px)" 
+          scale: 0.98, 
+          y: 10
         }}
-        transition={{ duration: 1.4, ease: customEase, delay: !showIntro ? 0.3 : 0 }}
+        transition={{ duration: 0.8, ease: customEase, delay: !showIntro ? 0.1 : 0 }}
         className="min-h-screen text-[var(--text-primary)] transition-colors duration-300"
-        style={{ opacity: isMounted ? 1 : 0 }}
+        style={{ 
+          opacity: isMounted ? undefined : 0,
+          transform: isRevealed ? "none" : undefined
+        }}
       >
         {children}
       </motion.div>
