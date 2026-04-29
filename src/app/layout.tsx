@@ -47,8 +47,8 @@ export default function RootLayout({
       <body className="bg-[var(--background-base)] text-[var(--text-primary)] min-h-screen flex flex-col font-sans transition-colors duration-300">
         <IntroExperience>
           {children}
+          <ZehnX />
         </IntroExperience>
-        <ZehnX />
       </body>
     </html>
   );
