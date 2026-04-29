@@ -82,36 +82,24 @@ export default function IntroExperience({
             <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
               {/* Brand Reveal Cinematic Focus */}
               <div className="relative flex items-center justify-center h-32 w-32 md:h-48 md:w-48 mb-8 md:mb-10">
-                {/* Luminous Rotating Arc */}
-                <motion.svg
-                  width="100%"
-                  height="100%"
-                  viewBox="0 0 100 100"
-                  className="absolute inset-0 overflow-visible opacity-40 mix-blend-screen"
-                  initial={{ rotate: -90, scale: 0.8, opacity: 0 }}
-                  animate={{ rotate: 270, scale: 1.15, opacity: [0, 0.4, 0.2] }}
-                  transition={{ duration: 4.5, ease: customEase }}
-                >
-                  <motion.circle
-                    cx="50"
-                    cy="50"
-                    r="48"
-                    fill="none"
-                    stroke="url(#glow-gradient)"
-                    strokeWidth="1.5"
-                    strokeDasharray="120 200"
-                    initial={{ strokeDashoffset: 300 }}
-                    animate={{ strokeDashoffset: 0 }}
-                    transition={{ duration: 4.5, ease: customEase }}
+                {/* Luminous Pulsing Aura */ }
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute inset-0 rounded-full border border-[#b6ff3b]/30 mix-blend-screen"
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: [0.5, 1.2, 1.6], opacity: [0, 0.6, 0] }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity, 
+                      ease: "easeOut", 
+                      delay: i * 1 
+                    }}
+                    style={{
+                      background: "radial-gradient(circle at 50% 50%, rgba(139,195,74,0.1) 0%, transparent 70%)"
+                    }}
                   />
-                  <defs>
-                    <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#8bc34a" />
-                      <stop offset="50%" stopColor="#b6ff3b" />
-                      <stop offset="100%" stopColor="transparent" />
-                    </linearGradient>
-                  </defs>
-                </motion.svg>
+                ))}
                 
                 {/* Logo Ascent */}
                 <motion.img
@@ -133,8 +121,8 @@ export default function IntroExperience({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ duration: 0.7, ease: customEase }}
-                    className="text-[#ffffff] text-xs sm:text-sm md:text-base font-medium tracking-[0.05em] md:tracking-[0.1em]"
-                    style={{ textShadow: '0 0 10px rgba(255,255,255,0.5)' }}
+                    className="text-[#b6ff3b] text-xs sm:text-sm md:text-base font-medium tracking-[0.05em] md:tracking-[0.1em]"
+                    style={{ textShadow: '0 0 12px rgba(182,255,59,0.6)' }}
                   >
                     {messages[messageIndex]}
                   </motion.div>
